@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.ClientsView"
+             Title="ClientsView">
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding RedirectToAddClientForm}"/>
+    </ContentPage.ToolbarItems>
+    <Grid RowDefinitions=".2*, .8*">
+        <SearchBar x:Name="searchBar"
+                   Margin="5,5,5,5"
+                   TextChanged="searchBar_TextChanged"
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"/>
+        <ScrollView Grid.Row="1"
+                    Margin="0,10,0,0">
+            <CollectionView ItemsSource="{Binding FilteredClients}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5,0,5">
+                            <Grid RowDefinitions=".5*,.5*">
+                                <Label Text="{Binding Name}"/>
+                                <Label Grid.Row="1" Text="{Binding PhoneNumber}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
+    
+    
+</ContentPage>

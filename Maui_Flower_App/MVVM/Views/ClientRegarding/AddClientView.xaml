@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.AddClientView"
+             Title="AddClientView">
+    <VerticalStackLayout VerticalOptions="Center" 
+                         HorizontalOptions="Center" >
+        <Frame HeightRequest="300">
+            <Grid RowDefinitions=".25*,.25*,.25*,.25*"
+                  ColumnDefinitions=".1*,.8*,.1*">
+                <Entry x:Name="nameEntry"
+                       Grid.Column="1"
+                       Placeholder="Client Name"
+                       BindingContext="{Binding Client}"
+                       Text="{Binding Name}"
+                       FontSize="Large"/>
+                <Entry x:Name="addressEntry"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       Placeholder="Client address"
+                       BindingContext="{Binding Client}"
+                       Text="{Binding Address}"
+                       FontSize="Large"/>
+                <Entry x:Name="phoneNumberEntry"
+                       Grid.Column="1"
+                       Grid.Row="2"
+                       Placeholder="Client phone number"
+                       Keyboard="Telephone"
+                       FontSize="Large"
+                       BindingContext="{Binding Client}"
+                       Text="{Binding PhoneNumber}"
+                       ReturnCommand="{Binding Parse}"/>
+                <Button x:Name="saveButton" 
+                        Grid.Row="3"
+                        Text="Save"
+                        Command="{Binding Save}"/>
+            </Grid>
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>

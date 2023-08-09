@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Flower_App.MVVM.Views.HomeView"
+             Title="HomeView">
+
+    <ContentPage.Resources>
+        <Color x:Key="primary">#23204e</Color>
+        <Color x:Key="secondary">#5e44a4</Color>
+        <Color x:Key="tertiary">#ffede9</Color>
+        <Color x:Key="quaternary">#e05161</Color>
+        <Style TargetType="Button" x:Key="homeButton">
+            <Setter Property="WidthRequest" Value="320"/>
+            <Setter Property="HeightRequest" Value="90"/>
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="FontAttributes" Value="Italic"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource tertiary}"/>
+            <Setter Property="TextColor" Value="{StaticResource quaternary}"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions=".55*,.45*"
+          BackgroundColor="{StaticResource primary}">
+        <Image Margin="15,10,15,10" Source="flower_main"/>
+        <Grid Grid.Row="1"
+              RowDefinitions=".33*,.33*,.33*"
+              RowSpacing="15"
+              HorizontalOptions="Center"
+              VerticalOptions="Center">
+            <Button x:Name="ClientsButton"
+                    Style="{StaticResource homeButton}"
+                    Text="Clients"
+                    Command="{Binding Redirect}"
+                    CommandParameter="{Binding Source={x:Reference ClientsButton}, Path=Text}"/>
+            <Button x:Name="OrdersButton"
+                    Style="{StaticResource homeButton}"
+                    Grid.Row="1"
+                    Text="Orders"
+                    Command="{Binding Redirect}"
+                    CommandParameter="{Binding Source={x:Reference OrdersButton}, Path=Text}"/>
+            <Button x:Name="FlowersButton"
+                    Style="{StaticResource homeButton}"
+                    Grid.Row="2"
+                    Text="Flowers"
+                    Command="{Binding Redirect}"
+                    CommandParameter="{Binding Source={x:Reference FlowersButton}, Path=Text}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
