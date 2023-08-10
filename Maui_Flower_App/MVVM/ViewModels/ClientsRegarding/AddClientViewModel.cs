@@ -1,8 +1,9 @@
 ﻿using System;
-using PhoneNumbers;
 using System.Windows.Input;
 using PropertyChanged;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.Repositories.DI;
+using Maui_Flower_App.Helpers;
 
 namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 {
@@ -12,37 +13,28 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         #region Properties
 
         public Client Client { get; set; }
+        public IClientRepository _clientRepository { get; private set; }
 
         #endregion
 
         public AddClientViewModel()
         {
             Client = new Client();
+            _clientRepository = ServiceHelper.GetService<IClientRepository>();
         }
 
         #region Commands
 
-        public ICommand Parse => new Command(ParsePhoneNumber);
-        public ICommand Save => new Command(CreateClient);
+        public ICommand SaveCommand => new Command(CreateClient);
 
         #endregion
 
         #region Commands Methods
 
-        public void ParsePhoneNumber()
-        {
-            PhoneNumber parsedNumber;
-            var parsed = PhoneNumbers.PhoneNumber.TryParse(Client.PhoneNumber, CountryInfo.Ukraine ,out parsedNumber);
-
-            Client.PhoneNumber = parsed ? parsedNumber.ToString("E.123") : "incorrect format";
-        }
-
         public void CreateClient()
         {
-            if(Client.PhoneNumber == "incorrect format")
-                App.Current.MainPage.DisplayAlert("Error", "Incorrect phone number format", "Ok");
-
-
+            _clientRepository.CreateClientAsync(Client);
+            Application.Current.MainPage.Navigation.PopAsync();
         }
 
         #endregion

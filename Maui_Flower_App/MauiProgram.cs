@@ -1,4 +1,8 @@
-﻿namespace Maui_Flower_App;
+﻿using Maui_Flower_App.Helpers;
+using Maui_Flower_App.Repositories;
+using Maui_Flower_App.Repositories.DI;
+
+namespace Maui_Flower_App;
 
 public static class MauiProgram
 {
@@ -13,6 +17,12 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		return builder.Build();
+		builder.Services.AddSingleton<IClientRepository, ClientRepository>();
+
+		var app = builder.Build();
+
+		ServiceHelper.Initialize(app.Services);
+
+		return app;
 	}
 }

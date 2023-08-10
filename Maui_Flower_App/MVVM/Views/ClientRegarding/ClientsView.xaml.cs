@@ -14,6 +14,13 @@ public partial class ClientsView : ContentPage
 		BindingContext = _clientViewModel;
 	}
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+		await _clientViewModel.InitializeClientsAsync();
+    }
+
     private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
 		_clientViewModel.Search(searchBar.Text);

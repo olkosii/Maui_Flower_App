@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.AddClientView"
-             Title="AddClientView">
+             x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.ClientDetailsView"
+             Title="ClientDetailsView">
+
     <VerticalStackLayout VerticalOptions="Center" 
                          HorizontalOptions="Center" >
         <Frame HeightRequest="350"
@@ -32,12 +33,12 @@
                        Keyboard="Telephone"
                        FontSize="Large"
                        Text="{Binding Client.PhoneNumber}"/>
-                <Button x:Name="saveButton" 
+                <Button x:Name="updateButton" 
                         Grid.Row="3"
                         Grid.Column="1"
-                        Text="Save"
+                        Text="Update"
                         FontSize="Large"
-                        Command="{Binding SaveCommand}"/>
+                        Command="{Binding UpdateCommand}"/>
             </Grid>
         </Frame>
     </VerticalStackLayout>

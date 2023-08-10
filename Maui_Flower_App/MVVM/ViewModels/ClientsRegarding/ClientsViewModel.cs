@@ -1,7 +1,10 @@
-﻿using Maui_Flower_App.MVVM.Models;
+﻿using Maui_Flower_App.Helpers;
+using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.MVVM.Views.ClientRegarding;
+using Maui_Flower_App.Repositories.DI;
 using PropertyChanged;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
@@ -13,19 +16,13 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         private List<Client> Clients { get; set; }
         public List<Client> FilteredClients { get; set; }
+        public IClientRepository _clientRepository { get; private set; }
 
         #endregion
 
         public ClientsViewModel()
         {
-            Clients = new List<Client>()
-            {
-                new Client(){Id = "1", Name = "Sasha", Address = "Lviv", PhoneNumber = "063-29-86-787"},
-                new Client(){Id = "2", Name = "Dima", Address = "Vin", PhoneNumber = "063-29-86-787"},
-                new Client(){Id = "3", Name = "Nastia", Address = "Dnipro", PhoneNumber = "063-29-86-787"}
-            };
-
-            FilteredClients = new List<Client>(Clients);
+            _clientRepository = ServiceHelper.GetService<IClientRepository>();
         }
 
         #region Commands
@@ -33,6 +30,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         public ICommand AddClient => new Command<Client>(AddClientAsync);
         public ICommand RedirectToAddClientForm => new Command(RedirectToForm);
         public ICommand SearchCommand => new Command<string>(Search);
+        public ICommand ItemSelectedCommand => new Command<Client>(RedirectToClientDetails);
 
         #endregion
 
@@ -48,11 +46,22 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
             Application.Current.MainPage.Navigation.PushAsync(new AddClientView());
         }
 
+        public void RedirectToClientDetails(Client client)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new ClientDetailsView(client));
+        }
+
         public void AddClientAsync(Client newClient)
         {
             Clients.Add(newClient);
         }
 
         #endregion
+
+        public async Task InitializeClientsAsync()
+        {
+            Clients = await _clientRepository.GetClientsAsync();
+            FilteredClients = new List<Client>(Clients);
+        }
     }
 }
