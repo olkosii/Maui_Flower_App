@@ -4,7 +4,6 @@ using Maui_Flower_App.MVVM.Views.ClientRegarding;
 using Maui_Flower_App.Repositories.DI;
 using PropertyChanged;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
@@ -16,7 +15,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         private List<Client> Clients { get; set; }
         public List<Client> FilteredClients { get; set; }
-        public IClientRepository _clientRepository { get; private set; }
+        private IClientRepository _clientRepository { get; set; }
 
         #endregion
 
@@ -27,7 +26,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         #region Commands
 
-        public ICommand AddClient => new Command<Client>(AddClientAsync);
+        //public ICommand DeleteClientCommand => new Command<Client>(DeleteClientAsync);
         public ICommand RedirectToAddClientForm => new Command(RedirectToForm);
         public ICommand SearchCommand => new Command<string>(Search);
         public ICommand ItemSelectedCommand => new Command<Client>(RedirectToClientDetails);
@@ -51,9 +50,27 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
             Application.Current.MainPage.Navigation.PushAsync(new ClientDetailsView(client));
         }
 
-        public void AddClientAsync(Client newClient)
+        public async Task DeleteClientAsync(Client client)
         {
-            Clients.Add(newClient);
+            var alertResult = await Application.Current.MainPage
+                    .DisplayAlert(Constants.AppConstants.Message.Attention,
+                    Constants.AppConstants.Message.DeleteAttentionMessage + $"({client.Name})", "Ok", "Cancel");
+
+            if (alertResult)
+            {
+                var result = await _clientRepository.DeleteClientAsync(client.Id);
+
+                if (result)
+                {
+                    var clientIndex = Clients.FindIndex(c => c.Id == client.Id);
+                    Clients.RemoveAt(clientIndex);
+                    FilteredClients.RemoveAt(clientIndex);
+
+                    await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Message.MessageWord, Constants.AppConstants.Message.UserDeleted, "Ok");
+                }
+                else
+                    await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Error.ErrorWord, Constants.AppConstants.Error.ErrorMessage, "Ok");
+            }
         }
 
         #endregion

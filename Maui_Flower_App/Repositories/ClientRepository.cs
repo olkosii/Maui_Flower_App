@@ -10,7 +10,15 @@ namespace Maui_Flower_App.Repositories
     //Not implementet repository for Firebase
     public sealed class ClientRepository : IClientRepository
     {
-        private HttpClient _httpClient;
+        private static readonly HttpClient _httpClient;
+
+        static ClientRepository()
+        {
+            _httpClient = new HttpClient(new SocketsHttpHandler
+            {
+                PooledConnectionLifetime = TimeSpan.FromMinutes(1)
+            });
+        }
 
         public ClientRepository()
         {
@@ -20,15 +28,13 @@ namespace Maui_Flower_App.Repositories
         {
             try
             {
-                using (_httpClient = new HttpClient())
-                {
-                    var response = await _httpClient.GetAsync(Constants.FirebaseConstants.baseUrl + Constants.FirebaseConstants.ClientsCollection);
-                    
-                    if (response.IsSuccessStatusCode)
-                        return await ClientDeserializer.DeserializeClientList(response);
-                }
+                var response = await _httpClient
+                    .GetAsync(Constants.FirebaseConstants.BaseUrl + Constants.FirebaseConstants.ClientsCollection + Constants.FirebaseConstants.JsonPostfix);
 
-                return new List<Client> { };
+                if (response.IsSuccessStatusCode)
+                    return await ClientDeserializer.DeserializeClientList(response);
+
+                return new List<Client>();
             }
             catch (Exception ex)
             {
@@ -40,13 +46,11 @@ namespace Maui_Flower_App.Repositories
         {
             try
             {
-                using (_httpClient = new HttpClient())
-                {
-                    var response = await _httpClient.GetAsync(Constants.FirebaseConstants.baseUrl + clientId + ".json");
+                var response = await _httpClient
+                    .GetAsync(Constants.FirebaseConstants.BaseUrl + clientId + Constants.FirebaseConstants.JsonPostfix);
 
-                    if (response.IsSuccessStatusCode)
-                        return await ClientDeserializer.DeserializeClient(response);
-                }
+                if (response.IsSuccessStatusCode)
+                    return await ClientDeserializer.DeserializeClient(response);
 
                 return new Client();
             }
@@ -56,30 +60,41 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task CreateClientAsync(Client client)
+        public async Task<bool> CreateClientAsync(Client client)
         {
             try
             {
-                using(_httpClient = new HttpClient())
-                {
-                    var data = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8);
+                var data = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8);
 
-                    var response = await _httpClient
-                        .PostAsync(Constants.FirebaseConstants.baseUrl + Constants.FirebaseConstants.ClientsCollection, data);
-                }
+                var response = await _httpClient
+                    .PostAsync(Constants.FirebaseConstants.BaseUrl + Constants.FirebaseConstants.ClientsCollection + Constants.FirebaseConstants.JsonPostfix, data);
+
+                return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
-        public Task DeleteClientAsync(Client client)
+        public async Task<bool> DeleteClientAsync(string clientId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                HttpResponseMessage response = null;
+                
+                response = await _httpClient
+                        .DeleteAsync(Constants.FirebaseConstants.BaseUrl + Constants.FirebaseConstants.ClientsCollection + clientId + Constants.FirebaseConstants.JsonPostfix);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public Task UpdateClientAsync(Client client)
+        public async Task<bool> UpdateClientAsync(Client client)
         {
             throw new NotImplementedException();
         }

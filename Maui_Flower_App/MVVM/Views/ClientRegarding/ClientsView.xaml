@@ -24,15 +24,19 @@
             <CollectionView x:Name="clientsCollectionView"
                             SelectionMode="Single"
                             ItemsSource="{Binding FilteredClients}"
+                            SelectionChanged="clientsCollectionView_SelectionChanged"
                             SelectionChangedCommand="{Binding ItemSelectedCommand}"
                             SelectionChangedCommandParameter="{Binding Source={x:Reference clientsCollectionView},Path=SelectedItem}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="0,5">
-                            <SwipeView>
+                            <SwipeView SwipeStarted="SwipeView_SwipeStarted"
+                                       SwipeEnded="SwipeView_SwipeEnded">
                                 <SwipeView.LeftItems>
                                     <SwipeItemView>
-                                        <Button Text="Delete"
+                                        <Button x:Name="deleteClientButton"
+                                                Clicked="deleteClientButton_Clicked"
+                                                Text="Delete"
                                                 TextColor="Black"
                                                 BackgroundColor="AliceBlue"
                                                 Margin="4,0"/>

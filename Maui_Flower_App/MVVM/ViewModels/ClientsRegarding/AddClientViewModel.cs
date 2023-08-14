@@ -31,10 +31,16 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         #region Commands Methods
 
-        public void CreateClient()
+        public async void CreateClient()
         {
-            _clientRepository.CreateClientAsync(Client);
-            Application.Current.MainPage.Navigation.PopAsync();
+            var result = await _clientRepository.CreateClientAsync(Client);
+
+            if (result)
+                await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Message.MessageWord, Constants.AppConstants.Message.UserAdded, "Ok");
+            else
+                await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Error.ErrorWord, Constants.AppConstants.Error.ErrorMessage, "Ok");
+
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
 
         #endregion
