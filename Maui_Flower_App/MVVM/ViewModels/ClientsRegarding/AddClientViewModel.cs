@@ -13,7 +13,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         #region Properties
 
         public Client Client { get; set; }
-        public IClientRepository _clientRepository { get; private set; }
+        private IClientRepository _clientRepository { get; set; }
 
         #endregion
 

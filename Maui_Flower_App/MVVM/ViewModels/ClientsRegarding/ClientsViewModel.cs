@@ -26,7 +26,6 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         #region Commands
 
-        //public ICommand DeleteClientCommand => new Command<Client>(DeleteClientAsync);
         public ICommand RedirectToAddClientForm => new Command(RedirectToForm);
         public ICommand SearchCommand => new Command<string>(Search);
         public ICommand ItemSelectedCommand => new Command<Client>(RedirectToClientDetails);

@@ -29,7 +29,8 @@
                             SelectionChangedCommandParameter="{Binding Source={x:Reference clientsCollectionView},Path=SelectedItem}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="0,5">
+                        <Frame x:Name="containerFrame"
+                               Margin="0,5">
                             <SwipeView SwipeStarted="SwipeView_SwipeStarted"
                                        SwipeEnded="SwipeView_SwipeEnded">
                                 <SwipeView.LeftItems>

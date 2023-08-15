@@ -15,7 +15,7 @@ public partial class ClientsView : ContentPage
 		_clientViewModel = new ClientsViewModel();
 
 		BindingContext = _clientViewModel;
-	}
+    }
 
     protected override async void OnAppearing()
     {

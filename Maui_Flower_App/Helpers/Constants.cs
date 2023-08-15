@@ -23,6 +23,7 @@ namespace Maui_Flower_App.Helpers
             {
                 public const string MessageWord = "Message";
                 public const string UserAdded = "User was successfully added";
+                public const string UserUpdated = "User was successfully updated";
                 public const string Attention = "Attention!";
                 public const string DeleteAttentionMessage = "Are you sure you want to delete this client?";
                 public const string UserDeleted = "Client was successfully deleted";
