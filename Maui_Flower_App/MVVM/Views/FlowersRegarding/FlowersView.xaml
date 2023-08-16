@@ -10,5 +10,4 @@
                      Command="{Binding RedirectToAddFlowerFormCommand}"/>
     </ContentPage.ToolbarItems>
     
-
 </ContentPage>
