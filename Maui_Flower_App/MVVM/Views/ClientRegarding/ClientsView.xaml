@@ -4,11 +4,11 @@
              x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.ClientsView"
              Title="ClientsView">
 
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
                      Command="{Binding RedirectToAddClientForm}"/>
     </ContentPage.ToolbarItems>
+    
     <Grid RowDefinitions=".1*, .9*">
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="Center">

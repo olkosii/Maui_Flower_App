@@ -4,14 +4,14 @@ namespace Maui_Flower_App.MVVM.Views.FlowersRegarding;
 
 public partial class NewFlowerFormView : ContentPage
 {
-    private NewFlowerViewModel _newFlowerViewModel;
+	private NewFlowerViewModel _newFlowerViewModel;
 
-    public NewFlowerFormView()
-    {
-        InitializeComponent();
+	public NewFlowerFormView()
+	{
+		InitializeComponent();
 
-        _newFlowerViewModel = new NewFlowerViewModel();
+		_newFlowerViewModel = new NewFlowerViewModel();
 
-        BindingContext = _newFlowerViewModel;
-    }
+		BindingContext = _newFlowerViewModel;
+	}
 }

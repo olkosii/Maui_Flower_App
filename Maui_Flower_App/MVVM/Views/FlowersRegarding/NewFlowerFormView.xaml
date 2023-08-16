@@ -16,5 +16,6 @@
                 <Entry BindingContext="{Binding Flower.Image}"/>
             </Grid>
         </Frame>
+        
     </VerticalStackLayout>
 </ContentPage>

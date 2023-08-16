@@ -4,6 +4,7 @@
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowersView"
              Title="Flowers">
 
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
                      Command="{Binding RedirectToAddFlowerFormCommand}"/>
