@@ -18,6 +18,7 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<IClientRepository, ClientRepository>();
+		builder.Services.AddSingleton<IFlowerRepository, FlowerRepository>();
 
 		var app = builder.Build();
 
