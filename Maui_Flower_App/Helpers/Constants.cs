@@ -8,6 +8,7 @@ namespace Maui_Flower_App.Helpers
         {
             public const string BaseUrl = "https://mauiflowerapp-default-rtdb.europe-west1.firebasedatabase.app/";
             public const string ClientsCollection = "Clients/";
+            public const string FlowersCollection = "Flowers/";
             public const string JsonPostfix = ".json";
         }
 
@@ -24,6 +25,7 @@ namespace Maui_Flower_App.Helpers
                 public const string MessageWord = "Message";
                 public const string UserAdded = "User was successfully added";
                 public const string UserUpdated = "User was successfully updated";
+                public const string FlowerAdded = "Flower was successfully added";
                 public const string Attention = "Attention!";
                 public const string DeleteAttentionMessage = "Are you sure you want to delete this client?";
                 public const string UserDeleted = "Client was successfully deleted";

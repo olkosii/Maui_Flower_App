@@ -70,6 +70,9 @@
 	  <MauiXaml Update="MVVM\Views\FlowersRegarding\FlowersView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\FlowersRegarding\NewFlowerFormView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\HomeTabbed.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

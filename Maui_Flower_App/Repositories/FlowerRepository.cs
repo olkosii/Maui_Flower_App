@@ -3,15 +3,16 @@ using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.Repositories.DI;
 using Newtonsoft.Json;
+using System;
 using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public sealed class ClientRepository : IClientRepository
+    public class FlowerRepository : IFlowerRepository
     {
         private static readonly HttpClient _httpClient;
 
-        static ClientRepository()
+        static FlowerRepository()
         {
             _httpClient = new HttpClient(new SocketsHttpHandler
             {
@@ -19,59 +20,55 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public ClientRepository()
-        {
-        }
-
-        public async Task<List<Client>> GetClientsAsync()
-        {
-            try
-            {
-                var response = await _httpClient.GetAsync(
-                    Constants.FirebaseConstants.BaseUrl + 
-                    Constants.FirebaseConstants.ClientsCollection + 
-                    Constants.FirebaseConstants.JsonPostfix);
-
-                if (response.IsSuccessStatusCode)
-                    return await ClientDeserializer.DeserializeClientList(response);
-
-                return new List<Client>();
-            }
-            catch (Exception ex)
-            {
-                return new List<Client> { };
-            }
-        }
-
-        public async Task<Client> GetClientAsync(string clientId)
+        public async Task<List<Flower>> GetFlowersAsync()
         {
             try
             {
                 var response = await _httpClient.GetAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.ClientsCollection +
-                    clientId + Constants.FirebaseConstants.JsonPostfix);
+                    Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
-                    return await ClientDeserializer.DeserializeClient(response);
+                    return await FlowerDeserializer.DeserializeFlowerList(response);
 
-                return new Client();
+                return new List<Flower>();
             }
             catch (Exception ex)
             {
-                return new Client();
+                return new List<Flower> { };
             }
         }
 
-        public async Task<bool> CreateClientAsync(Client client)
+        public async Task<Flower> GetFlowerAsync(string flowerId)
         {
             try
             {
-                var data = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8);
+                var response = await _httpClient.GetAsync(
+                    Constants.FirebaseConstants.BaseUrl +
+                    Constants.FirebaseConstants.FlowersCollection +
+                    flowerId + Constants.FirebaseConstants.JsonPostfix);
+
+                if (response.IsSuccessStatusCode)
+                    return await FlowerDeserializer.DeserializeFlower(response);
+
+                return new Flower();
+            }
+            catch (Exception ex)
+            {
+                return new Flower();
+            }
+        }
+
+        public async Task<bool> CreateFlowerAsync(Flower flower)
+        {
+            try
+            {
+                var data = new StringContent(JsonConvert.SerializeObject(flower), Encoding.UTF8);
 
                 var response = await _httpClient.PostAsync(
-                    Constants.FirebaseConstants.BaseUrl + 
-                    Constants.FirebaseConstants.ClientsCollection + 
+                    Constants.FirebaseConstants.BaseUrl +
+                    Constants.FirebaseConstants.FlowersCollection +
                     Constants.FirebaseConstants.JsonPostfix, data);
 
                 return response.IsSuccessStatusCode;
@@ -82,14 +79,14 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> DeleteClientAsync(string clientId)
+        public async Task<bool> DeleteFlowerAsync(string flowerId)
         {
             try
             {
                 var response = await _httpClient.DeleteAsync(
-                    Constants.FirebaseConstants.BaseUrl + 
-                    Constants.FirebaseConstants.ClientsCollection + 
-                    clientId + Constants.FirebaseConstants.JsonPostfix);
+                    Constants.FirebaseConstants.BaseUrl +
+                    Constants.FirebaseConstants.FlowersCollection +
+                    flowerId + Constants.FirebaseConstants.JsonPostfix);
 
                 return response.IsSuccessStatusCode;
             }
@@ -99,16 +96,16 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> UpdateClientAsync(Client client)
+        public async Task<bool> UpdateFlowerAsync(Flower flower)
         {
             try
             {
-                var data = new StringContent(JsonConvert.SerializeObject(client), Encoding.UTF8);
+                var data = new StringContent(JsonConvert.SerializeObject(flower), Encoding.UTF8);
 
                 var response = await _httpClient.PutAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.ClientsCollection +
-                    client.Id + "/" +
+                    flower.Id + "/" +
                     Constants.FirebaseConstants.JsonPostfix, data);
 
                 return response.IsSuccessStatusCode;

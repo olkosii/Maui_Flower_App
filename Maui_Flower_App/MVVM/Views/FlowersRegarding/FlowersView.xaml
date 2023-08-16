@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowersView"
-             Title="FlowersView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to flowers page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Flowers">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding RedirectToAddFlowerFormCommand}"/>
+    </ContentPage.ToolbarItems>
+    
 </ContentPage>
