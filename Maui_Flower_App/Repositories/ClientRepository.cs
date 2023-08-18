@@ -29,7 +29,7 @@ namespace Maui_Flower_App.Repositories
             {
                 var response = await _httpClient.GetAsync(
                     Constants.FirebaseConstants.BaseUrl + 
-                    Constants.FirebaseConstants.FlowersCollection + 
+                    Constants.FirebaseConstants.ClientsCollection + 
                     Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)

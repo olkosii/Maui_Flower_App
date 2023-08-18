@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public class FlowerRepository : IFlowerRepository
+    public class FirebaseFlowerRepository : IFlowerRepository
     {
         private static readonly HttpClient _httpClient;
 
-        static FlowerRepository()
+        static FirebaseFlowerRepository()
         {
             _httpClient = new HttpClient(new SocketsHttpHandler
             {
@@ -20,17 +20,45 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public async Task<List<Flower>> GetFlowersAsync()
+        public async Task<List<Flower>> GetDistinctFlowersAsync()
         {
             try
             {
                 var response = await _httpClient.GetAsync(
                     Constants.FirebaseConstants.BaseUrl +
-                    Constants.FirebaseConstants.ClientsCollection +
+                    Constants.FirebaseConstants.FlowersCollection +
                     Constants.FirebaseConstants.JsonPostfix);
 
+
                 if (response.IsSuccessStatusCode)
-                    return await FlowerDeserializer.DeserializeFlowerList(response);
+                {
+                    var flowers = await FlowerDeserializer.DeserializeFlowerList(response);
+                    return flowers.DistinctBy(f => f.TypeName).ToList();
+                }
+
+                return new List<Flower>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Flower> { };
+            }
+        }
+
+        public async Task<List<Flower>> GetFlowersByTypeName(string typeName)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(
+                    Constants.FirebaseConstants.BaseUrl +
+                    Constants.FirebaseConstants.FlowersCollection +
+                    Constants.FirebaseConstants.JsonPostfix);
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var flowers = await FlowerDeserializer.DeserializeFlowerList(response);
+                    return flowers.DistinctBy(f => f.TypeName == typeName).ToList();
+                }
 
                 return new List<Flower>();
             }

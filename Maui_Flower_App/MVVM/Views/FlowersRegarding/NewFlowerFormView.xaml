@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Maui_Flower_App.Converters"
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.NewFlowerFormView"
              Title="New Flower">
-    <VerticalStackLayout>
-        <Frame Margin="2,10">
-            <Grid ColumnDefinitions=".4*,.6*"
-                  RowDefinitions=".2*,.2*,.2*,.2*,.2*">
-                <Entry BindingContext="{Binding Flower.Image}"
+
+    <ContentPage.Resources>
+        <converters:FlowerValueConverter x:Key="FlowerValueConverter"/>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center">
+        <Frame Margin="10">
+            <Grid RowDefinitions=".2*,.2*,.2*,.2*,.2*">
+                <Entry Text="{Binding Flower.Image}"
                        FontSize="Large"
                        Placeholder="Image url"/>
-                <Entry BindingContext="{Binding Flower.Image}"/>
-                <Entry BindingContext="{Binding Flower.Image}"/>
-                <Entry BindingContext="{Binding Flower.Image}"/>
-                <Entry BindingContext="{Binding Flower.Image}"/>
+                <Entry Grid.Row="1"
+                       Text="{Binding Flower.TypeName}"
+                       FontSize="Large"
+                       Placeholder="Type Name"/>
+                <Entry Grid.Row="2"
+                       Text="{Binding Flower.Length, Converter={StaticResource FlowerValueConverter}}"
+                       FontSize="Large"
+                       Placeholder="Length(cm)"
+                       Keyboard="Numeric"/>
+                <Entry Grid.Row="3"
+                       Text="{Binding Flower.CountPerPackage, Converter={StaticResource FlowerValueConverter}}"
+                       FontSize="Large"
+                       Placeholder="Count Per Package"
+                       Keyboard="Numeric"/>
+                <Entry Grid.Row="4"
+                       Text="{Binding Flower.PricePerUnit, Converter={StaticResource FlowerValueConverter}}"
+                       FontSize="Large"
+                       Placeholder="Price Per Unit"
+                       Keyboard="Numeric"/>
             </Grid>
         </Frame>
-        
+        <Button Text="Save"
+                Margin="10"
+                Command="{Binding SaveCommand}"/>
+
     </VerticalStackLayout>
 </ContentPage>

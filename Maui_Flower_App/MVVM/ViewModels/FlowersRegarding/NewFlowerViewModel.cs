@@ -1,11 +1,13 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.Repositories.DI;
+using PropertyChanged;
 using System;
 using System.Windows.Input;
 
 namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 {
+    [AddINotifyPropertyChangedInterface]
     public class NewFlowerViewModel
     {
         #region Properties

@@ -14,4 +14,16 @@ public partial class FlowersView : ContentPage
 
 		BindingContext = _flowersViewModel;
 	}
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+
+		await _flowersViewModel.InitializeFlowersAsync();
+    }
+
+    private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+		_flowersViewModel.Search(searchBar.Text);
+    }
 }
