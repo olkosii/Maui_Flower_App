@@ -13,14 +13,14 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
         #region Properties
 
         public Flower Flower { get; set; }
-        private IFlowerRepository _flowerRepository { get; set; }
+        private IFlowerRepository<string> _flowerRepository { get; set; }
 
         #endregion
 
         public NewFlowerViewModel()
         {
             Flower = new Flower();
-            _flowerRepository = ServiceHelper.GetService<IFlowerRepository>();
+            _flowerRepository = ServiceHelper.GetService<IFlowerRepository<string>>();
         }
 
         #region Commands

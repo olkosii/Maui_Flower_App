@@ -6,7 +6,7 @@ using System;
 
 namespace Maui_Flower_App.Repositories
 {
-    public class SqlLiteClientRepository : IClientRepository
+    public class SqlLiteClientRepository : IClientRepository<int>
     {
         private SQLiteConnection _databaseConnection;
 
@@ -16,34 +16,34 @@ namespace Maui_Flower_App.Repositories
                 new SQLiteConnection(Constants.AppConstants.SqlLiteConstants.DatabasePath,
                                      Constants.AppConstants.SqlLiteConstants.Flags);
 
-            _databaseConnection.CreateTable<Client>();
+            _databaseConnection.CreateTable<Client<int>>();
         }
 
-        public async Task<List<Client>> GetClientsAsync()
+        public async Task<List<Client<int>>> GetClientsAsync()
         {
             try
             {
-                return _databaseConnection.Table<Client>().ToList();
+                return _databaseConnection.Table<Client<int>>().ToList();
             }
             catch (Exception ex)
             {
-                return new List<Client> { };
+                return new List<Client<int>> { };
             }
         }
 
-        public async Task<Client> GetClientAsync(int clientId)
+        public async Task<Client<int>> GetClientAsync(int clientId)
         {
             try
             {
-                return _databaseConnection.Table<Client>().FirstOrDefault(c => c.Id == clientId);
+                return _databaseConnection.Table<Client<int>>().FirstOrDefault(c => c.Id == clientId);
             }
             catch (Exception)
             {
-                return new Client();
+                return new Client<int>();
             }
         }
 
-        public async Task<bool> CreateClientAsync(Client client)
+        public async Task<bool> CreateClientAsync(Client<int> client)
         {
             int result = 0;
             try
@@ -73,7 +73,7 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> UpdateClientAsync(Client client)
+        public async Task<bool> UpdateClientAsync(Client<int> client)
         {
             try
             {

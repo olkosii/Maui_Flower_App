@@ -12,15 +12,15 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
     {
         #region Properties
 
-        public Client Client { get; set; }
-        private IClientRepository _clientRepository { get; set; }
+        public Client<int> Client { get; set; }
+        private IClientRepository<int> _clientRepository { get; set; }
 
         #endregion
 
         public AddClientViewModel()
         {
-            Client = new Client();
-            _clientRepository = ServiceHelper.GetService<IClientRepository>();
+            Client = new Client<int>();
+            _clientRepository = ServiceHelper.GetService<IClientRepository<int>>();
         }
 
         #region Commands

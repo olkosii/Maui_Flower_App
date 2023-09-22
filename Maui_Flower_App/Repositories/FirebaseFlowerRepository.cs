@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public class FirebaseFlowerRepository : IFlowerRepository
+    public class FirebaseFlowerRepository : IFlowerRepository<string>
     {
         private static readonly HttpClient _httpClient;
 
@@ -20,7 +20,7 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public async Task<List<Flower>> GetDistinctFlowersAsync()
+        public async Task<List<Flower<string>>> GetDistinctFlowersAsync()
         {
             try
             {
@@ -32,19 +32,19 @@ namespace Maui_Flower_App.Repositories
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var flowers = await FlowerDeserializer.DeserializeFlowerList(response);
+                    var flowers = await FlowerDeserializer<string>.DeserializeFlowerList(response);
                     return flowers.DistinctBy(f => f.TypeName).ToList();
                 }
 
-                return new List<Flower>();
+                return new List<Flower<string>>();
             }
             catch (Exception ex)
             {
-                return new List<Flower> { };
+                return new List<Flower<string>> { };
             }
         }
 
-        public async Task<List<Flower>> GetFlowersByTypeName(string typeName)
+        public async Task<List<Flower<string>>> GetFlowersByTypeName(string typeName)
         {
             try
             {
@@ -56,19 +56,19 @@ namespace Maui_Flower_App.Repositories
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var flowers = await FlowerDeserializer.DeserializeFlowerList(response);
+                    var flowers = await FlowerDeserializer<string>.DeserializeFlowerList(response);
                     return flowers.DistinctBy(f => f.TypeName == typeName).ToList();
                 }
 
-                return new List<Flower>();
+                return new List<Flower<string>>();
             }
             catch (Exception ex)
             {
-                return new List<Flower> { };
+                return new List<Flower<string>> { };
             }
         }
 
-        public async Task<Flower> GetFlowerAsync(string flowerId)
+        public async Task<Flower<string>> GetFlowerAsync(string flowerId)
         {
             try
             {
@@ -78,17 +78,17 @@ namespace Maui_Flower_App.Repositories
                     flowerId + Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
-                    return await FlowerDeserializer.DeserializeFlower(response);
+                    return await FlowerDeserializer<string>.DeserializeFlower(response);
 
-                return new Flower();
+                return new Flower<string>();
             }
             catch (Exception ex)
             {
-                return new Flower();
+                return new Flower<string>();
             }
         }
 
-        public async Task<bool> CreateFlowerAsync(Flower flower)
+        public async Task<bool> CreateFlowerAsync(Flower<string> flower)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> UpdateFlowerAsync(Flower flower)
+        public async Task<bool> UpdateFlowerAsync(Flower<string> flower)
         {
             try
             {

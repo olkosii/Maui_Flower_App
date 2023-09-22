@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public sealed class FirebaseClientRepository : IClientRepository
+    public sealed class FirebaseClientRepository : IClientRepository<string>
     {
         private static readonly HttpClient _httpClient;
 
@@ -19,11 +19,7 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public FirebaseClientRepository()
-        {
-        }
-
-        public async Task<List<Client>> GetClientsAsync()
+        public async Task<List<Client<string>>> GetClientsAsync()
         {
             try
             {
@@ -33,18 +29,18 @@ namespace Maui_Flower_App.Repositories
                     Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
-                    return await ClientDeserializer.DeserializeClientList(response);
+                    return await ClientDeserializer<string>.DeserializeClientList(response);
 
-                return new List<Client>();
+                return new List<Client<string>>();
             }
             catch (Exception ex)
             {
-                return new List<Client> { };
+                return new List<Client<string>> { };
             }
         }
 
-        //Not working
-        public async Task<Client> GetClientAsync(int clientId)
+        
+        public async Task<Client<string>> GetClientAsync(string clientId)
         {
             try
             {
@@ -54,17 +50,17 @@ namespace Maui_Flower_App.Repositories
                     clientId.ToString() + Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
-                    return await ClientDeserializer.DeserializeClient(response);
+                    return await ClientDeserializer<string>.DeserializeClient(response);
 
-                return new Client();
+                return new Client<string>();
             }
             catch (Exception ex)
             {
-                return new Client();
+                return new Client<string>();
             }
         }
 
-        public async Task<bool> CreateClientAsync(Client client)
+        public async Task<bool> CreateClientAsync(Client<string> client)
         {
             try
             {
@@ -83,8 +79,7 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        //Not working
-        public async Task<bool> DeleteClientAsync(int clientId)
+        public async Task<bool> DeleteClientAsync(string clientId)
         {
             try
             {
@@ -101,7 +96,7 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> UpdateClientAsync(Client client)
+        public async Task<bool> UpdateClientAsync(Client<string> client)
         {
             try
             {

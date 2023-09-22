@@ -3,21 +3,21 @@ using System;
 
 namespace Maui_Flower_App.Deserializers
 {
-    public static class ClientDeserializer
+    public static class ClientDeserializer<TClientId>
     {
-        //Not working
-        public static async Task<List<Client>> DeserializeClientList(HttpResponseMessage responseMessage)
+        
+        public static async Task<List<Client<TClientId>>> DeserializeClientList(HttpResponseMessage responseMessage)
         {
 			try
 			{
-				var clientDictionary = await Deserializer.Deserialize<Client>(responseMessage);
-				var clientList = new List<Client>(clientDictionary.Count);
+				var clientDictionary = await Deserializer.Deserialize<TClientId,Client<TClientId>>(responseMessage);
+				var clientList = new List<Client<TClientId>>(clientDictionary.Count);
 
 				foreach (var client in clientDictionary)
 				{
-					clientList.Add(new Client
+					clientList.Add(new Client<TClientId>
 					{
-						//Id = client.Key,
+						Id = client.Key,
                         Name = client.Value.Name,
                         Address = client.Value.Address,
 						PhoneNumber = client.Value.PhoneNumber,
@@ -32,14 +32,14 @@ namespace Maui_Flower_App.Deserializers
 			}
         }
 
-        //Not working
-        public static async Task<Client> DeserializeClient(HttpResponseMessage responseMessage)
+        
+        public static async Task<Client<TClientId>> DeserializeClient(HttpResponseMessage responseMessage)
 		{
-            var clientDictionary = await Deserializer.Deserialize<Client>(responseMessage);
+            var clientDictionary = await Deserializer.Deserialize<TClientId, Client<TClientId>>(responseMessage);
 
-			var client = new Client
+			var client = new Client<TClientId>
 			{
-				//Id = clientDictionary.Keys.FirstOrDefault(),
+				Id = clientDictionary.Keys.FirstOrDefault(),
 				Name = clientDictionary.Values.FirstOrDefault().Name,
 				Address = clientDictionary.Values.FirstOrDefault().Address,
 				PhoneNumber = clientDictionary.Values.FirstOrDefault().PhoneNumber,

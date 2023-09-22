@@ -3,18 +3,18 @@ using System;
 
 namespace Maui_Flower_App.Deserializers
 {
-    public class FlowerDeserializer
+    public class FlowerDeserializer<TFlowerId>
     {
-        public static async Task<List<Flower>> DeserializeFlowerList(HttpResponseMessage responseMessage)
+        public static async Task<List<Flower<TFlowerId>>> DeserializeFlowerList(HttpResponseMessage responseMessage)
         {
             try
             {
-                var flowerDictionary = await Deserializer.Deserialize<Flower>(responseMessage);
-                var flowerList = new List<Flower>(flowerDictionary.Count);
+                var flowerDictionary = await Deserializer.Deserialize<TFlowerId,Flower<TFlowerId>>(responseMessage);
+                var flowerList = new List<Flower<TFlowerId>>(flowerDictionary.Count);
 
                 foreach (var flower in flowerDictionary)
                 {
-                    flowerList.Add(new Flower
+                    flowerList.Add(new Flower<TFlowerId>
                     {
                         Id = flower.Key,
                         TypeName = flower.Value.TypeName,
@@ -33,11 +33,11 @@ namespace Maui_Flower_App.Deserializers
             }
         }
 
-        public static async Task<Flower> DeserializeFlower(HttpResponseMessage responseMessage)
+        public static async Task<Flower<TFlowerId>> DeserializeFlower(HttpResponseMessage responseMessage)
         {
-            var flowerDictionary = await Deserializer.Deserialize<Flower>(responseMessage);
+            var flowerDictionary = await Deserializer.Deserialize<TFlowerId,Flower<TFlowerId>>(responseMessage);
 
-            var flower = new Flower
+            var flower = new Flower<TFlowerId>
             {
                 Id = flowerDictionary.Keys.FirstOrDefault(),
                 TypeName = flowerDictionary.Values.FirstOrDefault().TypeName,
