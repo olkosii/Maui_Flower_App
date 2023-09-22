@@ -5,6 +5,7 @@ namespace Maui_Flower_App.Deserializers
 {
     public static class ClientDeserializer
     {
+        //Not working
         public static async Task<List<Client>> DeserializeClientList(HttpResponseMessage responseMessage)
         {
 			try
@@ -16,7 +17,7 @@ namespace Maui_Flower_App.Deserializers
 				{
 					clientList.Add(new Client
 					{
-						Id = client.Key,
+						//Id = client.Key,
                         Name = client.Value.Name,
                         Address = client.Value.Address,
 						PhoneNumber = client.Value.PhoneNumber,
@@ -31,13 +32,14 @@ namespace Maui_Flower_App.Deserializers
 			}
         }
 
-		public static async Task<Client> DeserializeClient(HttpResponseMessage responseMessage)
+        //Not working
+        public static async Task<Client> DeserializeClient(HttpResponseMessage responseMessage)
 		{
             var clientDictionary = await Deserializer.Deserialize<Client>(responseMessage);
 
 			var client = new Client
 			{
-				Id = clientDictionary.Keys.FirstOrDefault(),
+				//Id = clientDictionary.Keys.FirstOrDefault(),
 				Name = clientDictionary.Values.FirstOrDefault().Name,
 				Address = clientDictionary.Values.FirstOrDefault().Address,
 				PhoneNumber = clientDictionary.Values.FirstOrDefault().PhoneNumber,

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public sealed class ClientRepository : IClientRepository
+    public sealed class FirebaseClientRepository : IClientRepository
     {
         private static readonly HttpClient _httpClient;
 
-        static ClientRepository()
+        static FirebaseClientRepository()
         {
             _httpClient = new HttpClient(new SocketsHttpHandler
             {
@@ -19,7 +19,7 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public ClientRepository()
+        public FirebaseClientRepository()
         {
         }
 
@@ -43,14 +43,15 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<Client> GetClientAsync(string clientId)
+        //Not working
+        public async Task<Client> GetClientAsync(int clientId)
         {
             try
             {
                 var response = await _httpClient.GetAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.ClientsCollection +
-                    clientId + Constants.FirebaseConstants.JsonPostfix);
+                    clientId.ToString() + Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
                     return await ClientDeserializer.DeserializeClient(response);
@@ -82,14 +83,15 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> DeleteClientAsync(string clientId)
+        //Not working
+        public async Task<bool> DeleteClientAsync(int clientId)
         {
             try
             {
                 var response = await _httpClient.DeleteAsync(
                     Constants.FirebaseConstants.BaseUrl + 
                     Constants.FirebaseConstants.ClientsCollection + 
-                    clientId + Constants.FirebaseConstants.JsonPostfix);
+                    clientId.ToString() + Constants.FirebaseConstants.JsonPostfix);
 
                 return response.IsSuccessStatusCode;
             }

@@ -6,9 +6,9 @@ namespace Maui_Flower_App.Repositories.DI
     public interface IClientRepository
     {
         Task<List<Client>> GetClientsAsync();
-        Task<Client> GetClientAsync(string clientId);
+        Task<Client> GetClientAsync(int clientId);
         Task<bool> CreateClientAsync(Client client);
         Task<bool> UpdateClientAsync(Client client);
-        Task<bool> DeleteClientAsync(string clientId);
+        Task<bool> DeleteClientAsync(int clientId);
     }
 }
