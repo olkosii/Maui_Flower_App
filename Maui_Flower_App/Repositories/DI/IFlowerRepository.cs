@@ -6,9 +6,9 @@ namespace Maui_Flower_App.Repositories.DI
     public interface IFlowerRepository
     {
         Task<List<Flower>> GetDistinctFlowersAsync();
-        Task<Flower> GetFlowerAsync(string flowerId);
+        Task<Flower> GetFlowerAsync(int flowerId);
         Task<bool> CreateFlowerAsync(Flower flower);
         Task<bool> UpdateFlowerAsync(Flower flower);
-        Task<bool> DeleteFlowerAsync(string flowerId);
+        Task<bool> DeleteFlowerAsync(int flowerId);
     }
 }

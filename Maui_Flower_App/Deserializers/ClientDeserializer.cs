@@ -16,7 +16,7 @@ namespace Maui_Flower_App.Deserializers
 				{
 					clientList.Add(new Client
 					{
-						Id = client.Key,
+						Id = int.Parse(client.Key),
                         Name = client.Value.Name,
                         Address = client.Value.Address,
 						PhoneNumber = client.Value.PhoneNumber,
@@ -37,7 +37,7 @@ namespace Maui_Flower_App.Deserializers
 
 			var client = new Client
 			{
-				Id = clientDictionary.Keys.FirstOrDefault(),
+				Id = int.Parse(clientDictionary.Keys.FirstOrDefault()),
 				Name = clientDictionary.Values.FirstOrDefault().Name,
 				Address = clientDictionary.Values.FirstOrDefault().Address,
 				PhoneNumber = clientDictionary.Values.FirstOrDefault().PhoneNumber,

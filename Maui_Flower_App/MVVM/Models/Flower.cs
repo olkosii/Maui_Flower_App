@@ -1,10 +1,12 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Maui_Flower_App.MVVM.Models
 {
     public class Flower
     {
-        public string Id { get; set; }
+        [PrimaryKey, AutoIncrement, Indexed]
+        public int Id { get; set; }
         public string TypeName { get; set; }
         public double Length { get; set; }
         public int CountPerPackage { get; set; }

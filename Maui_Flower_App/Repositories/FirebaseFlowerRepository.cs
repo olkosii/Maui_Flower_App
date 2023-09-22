@@ -68,14 +68,14 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<Flower> GetFlowerAsync(string flowerId)
+        public async Task<Flower> GetFlowerAsync(int flowerId)
         {
             try
             {
                 var response = await _httpClient.GetAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.FlowersCollection +
-                    flowerId + Constants.FirebaseConstants.JsonPostfix);
+                    flowerId.ToString() + Constants.FirebaseConstants.JsonPostfix);
 
                 if (response.IsSuccessStatusCode)
                     return await FlowerDeserializer.DeserializeFlower(response);
@@ -107,14 +107,14 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<bool> DeleteFlowerAsync(string flowerId)
+        public async Task<bool> DeleteFlowerAsync(int flowerId)
         {
             try
             {
                 var response = await _httpClient.DeleteAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.FlowersCollection +
-                    flowerId + Constants.FirebaseConstants.JsonPostfix);
+                    flowerId.ToString() + Constants.FirebaseConstants.JsonPostfix);
 
                 return response.IsSuccessStatusCode;
             }
@@ -133,7 +133,7 @@ namespace Maui_Flower_App.Repositories
                 var response = await _httpClient.PutAsync(
                     Constants.FirebaseConstants.BaseUrl +
                     Constants.FirebaseConstants.ClientsCollection +
-                    flower.Id + "/" +
+                    flower.Id.ToString() + "/" +
                     Constants.FirebaseConstants.JsonPostfix, data);
 
                 return response.IsSuccessStatusCode;
