@@ -3,6 +3,7 @@ using System;
 
 namespace Maui_Flower_App.MVVM.Models
 {
+    [Table("Flowers")]
     public class Flower
     {
         [PrimaryKey, AutoIncrement, Indexed]

@@ -18,7 +18,7 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<IClientRepository, SQLClientRepository>();
-		builder.Services.AddSingleton<IFlowerRepository, FirebaseFlowerRepository>();
+		builder.Services.AddSingleton<IFlowerRepository, SQLFlowerRepository>();
 
         var app = builder.Build();
 

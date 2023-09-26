@@ -28,7 +28,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame>
+                        <Frame Margin="5">
                             <Label Text="{Binding TypeName}"
                                    TextColor="Black"/>
                         </Frame>
