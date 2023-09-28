@@ -35,18 +35,16 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         #region Command Methods
 
-        //not working
         public void Search(string clientName)
         {
-            //FilteredClients = Clients.Where(c => c.Name.ToUpperInvariant().Contains(clientName.ToUpperInvariant())).ToList();
-
             List<ClientGroup> cg = new List<ClientGroup>();
 
             foreach (var clientGroup in Clients)
             {
                 var filteredGroup = clientGroup.Where(c => c.Name.ToUpper().Contains(clientName.ToUpper())).ToList();
 
-                cg.Add(new ClientGroup(clientGroup.Name, filteredGroup));
+                if(filteredGroup.Count > 0)
+                    cg.Add(new ClientGroup(clientGroup.Name, filteredGroup));
             }
 
             FilteredClients = cg;
