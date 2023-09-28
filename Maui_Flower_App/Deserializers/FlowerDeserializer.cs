@@ -16,7 +16,7 @@ namespace Maui_Flower_App.Deserializers
                 {
                     flowerList.Add(new Flower
                     {
-                        Id = flower.Key,
+                        Id = int.Parse(flower.Key),
                         TypeName = flower.Value.TypeName,
                         Length = flower.Value.Length,
                         CountPerPackage = flower.Value.CountPerPackage,
@@ -39,7 +39,7 @@ namespace Maui_Flower_App.Deserializers
 
             var flower = new Flower
             {
-                Id = flowerDictionary.Keys.FirstOrDefault(),
+                Id = int.Parse(flowerDictionary.Keys.FirstOrDefault()),
                 TypeName = flowerDictionary.Values.FirstOrDefault().TypeName,
                 Length = flowerDictionary.Values.FirstOrDefault().Length,
                 CountPerPackage = flowerDictionary.Values.FirstOrDefault().CountPerPackage,

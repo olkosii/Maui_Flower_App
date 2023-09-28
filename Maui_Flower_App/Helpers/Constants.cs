@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace Maui_Flower_App.Helpers
 {
@@ -14,6 +15,23 @@ namespace Maui_Flower_App.Helpers
 
         public static class AppConstants
         {
+            public static class SqlLiteConstants
+            {
+                public const string DBFileName = "FlowerAppSqlLite.db3";
+                public const SQLiteOpenFlags Flags =
+                    SQLiteOpenFlags.ReadWrite |
+                    SQLiteOpenFlags.Create |
+                    SQLiteOpenFlags.SharedCache;
+
+                public static string DatabasePath
+                {
+                    get
+                    {
+                        return Path.Combine(FileSystem.AppDataDirectory, DBFileName);
+                    }
+                }
+            }
+
             public static class Error
             {
                 public const string ErrorWord = "Error";
