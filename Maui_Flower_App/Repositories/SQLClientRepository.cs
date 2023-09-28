@@ -1,5 +1,6 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Models.Groups;
 using Maui_Flower_App.Repositories.DI;
 using SQLite;
 using System;
@@ -38,7 +39,7 @@ namespace Maui_Flower_App.Repositories
         {
             try
             {
-                var client = GetClientAsync(clientId);
+                var client = await GetClientAsync(clientId);
                 var result = _databaseConnection.Delete(client);
 
                 return result > 0;
@@ -61,6 +62,21 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
+        public async Task<List<ClientGroup>> GetClientsGroupAsync()
+        {
+            try
+            {
+                var clientGroups = _databaseConnection.Table<Client>().OrderBy(c => c.City).GroupBy(c => c.City)
+                    .Select(cg => new ClientGroup(cg.Key, cg.ToList())).ToList();
+
+                return clientGroups;
+            }
+            catch (Exception ex)
+            {
+                return new List<ClientGroup> { };
+            }
+        }
+
         public async Task<List<Client>> GetClientsAsync()
         {
             try
@@ -69,7 +85,7 @@ namespace Maui_Flower_App.Repositories
             }
             catch (Exception ex)
             {
-                return new List<Client> { };
+                return new List<Client>();
             }
         }
 

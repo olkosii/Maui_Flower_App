@@ -23,10 +23,20 @@
                     Margin="0,10,0,0">
             <CollectionView x:Name="clientsCollectionView"
                             SelectionMode="Single"
+                            IsGrouped="True"
                             ItemsSource="{Binding FilteredClients}"
                             SelectionChanged="clientsCollectionView_SelectionChanged"
                             SelectionChangedCommand="{Binding ItemSelectedCommand}"
                             SelectionChangedCommandParameter="{Binding Source={x:Reference clientsCollectionView},Path=SelectedItem}">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}"
+                               Margin="15,10"
+                               TextColor="Gray"
+                               FontSize="Medium"
+                               FontAttributes="Italic"/>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame x:Name="containerFrame"

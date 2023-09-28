@@ -19,6 +19,7 @@ namespace Maui_Flower_App.Deserializers
 						Id = int.Parse(client.Key),
                         Name = client.Value.Name,
                         Address = client.Value.Address,
+						City = client.Value.City,
 						PhoneNumber = client.Value.PhoneNumber,
 					});
 				}
@@ -40,6 +41,7 @@ namespace Maui_Flower_App.Deserializers
 				Id = int.Parse(clientDictionary.Keys.FirstOrDefault()),
 				Name = clientDictionary.Values.FirstOrDefault().Name,
 				Address = clientDictionary.Values.FirstOrDefault().Address,
+				City = clientDictionary.Values.FirstOrDefault().City,
 				PhoneNumber = clientDictionary.Values.FirstOrDefault().PhoneNumber,
 			};
 

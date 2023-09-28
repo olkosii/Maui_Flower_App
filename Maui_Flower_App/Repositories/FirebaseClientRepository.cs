@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public sealed class FirebaseClientRepository : IClientRepository
+    public sealed class FirebaseClientRepository
     {
         private static readonly HttpClient _httpClient;
 

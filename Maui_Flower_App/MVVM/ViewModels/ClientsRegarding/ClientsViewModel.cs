@@ -1,5 +1,6 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Models.Groups;
 using Maui_Flower_App.MVVM.Views.ClientRegarding;
 using Maui_Flower_App.Repositories.DI;
 using PropertyChanged;
@@ -13,8 +14,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
     {
         #region Properties
 
-        private List<Client> Clients { get; set; }
-        public List<Client> FilteredClients { get; set; }
+        private List<ClientGroup> Clients { get; set; }
+        public List<ClientGroup> FilteredClients { get; set; }
         private IClientRepository _clientRepository { get; set; }
 
         #endregion
@@ -34,9 +35,13 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         #region Command Methods
 
+        //not working
         public void Search(string clientName)
         {
-            FilteredClients = Clients.Where(c => c.Name.ToLower().Contains(clientName.ToLower())).ToList();
+            //FilteredClients = Clients.Where(c => c.Name.ToUpperInvariant().Contains(clientName.ToUpperInvariant())).ToList();
+            
+            FilteredClients = Clients.Select(cg => new ClientGroup(cg.Name, Clients.Select(c => c.Where())));
+
         }
 
         public void RedirectToForm()
@@ -48,7 +53,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         {
             Application.Current.MainPage.Navigation.PushAsync(new ClientDetailsView(client));
         }
-
+ 
         public async Task DeleteClientAsync(Client client)
         {
             var alertResult = await Application.Current.MainPage
@@ -61,9 +66,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
                 if (result)
                 {
-                    var clientIndex = Clients.FindIndex(c => c.Id == client.Id);
-                    Clients.RemoveAt(clientIndex);
-                    FilteredClients.RemoveAt(clientIndex);
+                    var clientIndex = Clients.FirstOrDefault(cg => cg.Name == client.City).FindIndex(c => c.Id == client.Id);
+                    Clients.FirstOrDefault(cg => cg.Name == client.City).RemoveAt(clientIndex);
 
                     await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Message.MessageWord, Constants.AppConstants.Message.UserDeleted, "Ok");
                 }
@@ -76,8 +80,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         public async Task InitializeClientsAsync()
         {
-            Clients = await _clientRepository.GetClientsAsync();
-            FilteredClients = new List<Client>(Clients);
+            Clients = await _clientRepository.GetClientsGroupAsync();
+            FilteredClients = new List<ClientGroup>(Clients);
         }
     }
 }

@@ -26,7 +26,9 @@ public partial class ClientsView : ContentPage
 
     private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-		_clientViewModel.Search(searchBar.Text);
+        clientsCollectionView.IsGrouped = searchBar.Text.Length > 0 ? false : true;
+
+        _clientViewModel.Search(searchBar.Text);
     }
 
     private void SwipeView_SwipeStarted(object sender, SwipeStartedEventArgs e)
