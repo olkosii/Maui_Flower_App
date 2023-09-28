@@ -39,9 +39,17 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         public void Search(string clientName)
         {
             //FilteredClients = Clients.Where(c => c.Name.ToUpperInvariant().Contains(clientName.ToUpperInvariant())).ToList();
-            
-            FilteredClients = Clients.Select(cg => new ClientGroup(cg.Name, Clients.Select(c => c.Where())));
 
+            List<ClientGroup> cg = new List<ClientGroup>();
+
+            foreach (var clientGroup in Clients)
+            {
+                var filteredGroup = clientGroup.Where(c => c.Name.ToUpper().Contains(clientName.ToUpper())).ToList();
+
+                cg.Add(new ClientGroup(clientGroup.Name, filteredGroup));
+            }
+
+            FilteredClients = cg;
         }
 
         public void RedirectToForm()

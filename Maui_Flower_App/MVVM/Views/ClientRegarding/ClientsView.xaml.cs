@@ -26,8 +26,6 @@ public partial class ClientsView : ContentPage
 
     private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        clientsCollectionView.IsGrouped = searchBar.Text.Length > 0 ? false : true;
-
         _clientViewModel.Search(searchBar.Text);
     }
 
