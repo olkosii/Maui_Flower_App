@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Maui_Flower_App.Repositories
 {
-    public class FirebaseFlowerRepository : IFlowerRepository
+    public class FirebaseFlowerRepository
     {
         private static readonly HttpClient _httpClient;
 
@@ -20,7 +20,7 @@ namespace Maui_Flower_App.Repositories
             });
         }
 
-        public async Task<List<Flower>> GetDistinctFlowersAsync()
+        public async Task<List<Flower>> GetDistinctGroupsOfFlowersGroupAsync()
         {
             try
             {

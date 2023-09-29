@@ -1,5 +1,6 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Models.Groups;
 using Maui_Flower_App.Repositories.DI;
 using SQLite;
 using System;
@@ -49,11 +50,28 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
+        //NOT WORKING
+        public async Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowersGroupAsync()
+        {
+            try
+            {
+                var fgByColor = _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).OrderBy(f => f.MainColor)
+                    .GroupBy(f => f.MainColor).Select(fg => new FlowerGroup(fg.Key.ToString(), fg.ToList())).ToList();
+
+
+                return new List<FlowerGroupGroup>();
+            }
+            catch (Exception)
+            {
+                return new List<FlowerGroupGroup>();
+            }
+        }
+
         public async Task<List<Flower>> GetDistinctFlowersAsync()
         {
             try
             {
-                return _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).OrderBy(f => f.TypeName).ToList();
+                return _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).ToList();
             }
             catch (Exception)
             {

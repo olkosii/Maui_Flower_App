@@ -6,6 +6,7 @@ using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.Repositories.DI;
 using Maui_Flower_App.Helpers;
 using PropertyChanged;
+using Maui_Flower_App.MVVM.Models.Groups;
 
 namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 {
@@ -39,9 +40,10 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
             Application.Current.MainPage.Navigation.PushAsync(new NewFlowerFormView());
         }
 
+        //NOT WORKING
         public void Search(string flowerName)
         {
-            FilteredFlowers = Flowers.Where(f => f.TypeName.ToLower().Contains(flowerName.ToLower())).ToList();
+            //FilteredFlowers = Flowers.Where(f => f.TypeName.ToLower().Contains(flowerName.ToLower())).ToList();
         }
 
         #endregion

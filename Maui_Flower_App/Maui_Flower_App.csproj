@@ -69,6 +69,9 @@
 	  <MauiXaml Update="MVVM\Views\ClientRegarding\ClientsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\FlowersRegarding\FlowerDetailsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\FlowersRegarding\FlowersView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

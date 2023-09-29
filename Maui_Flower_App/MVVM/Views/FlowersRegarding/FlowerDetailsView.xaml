@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowerDetailsView"
+             Title="FlowerDetailsView">
+
+    <VerticalStackLayout VerticalOptions="Center" 
+                         HorizontalOptions="Center" >
+        <Frame HeightRequest="350"
+               Margin="10,0">
+            <Frame.Shadow>
+                <Shadow Brush="Black"
+                        Offset="20,20"
+                        Opacity="0.8"/>
+            </Frame.Shadow>
+            <Grid RowDefinitions=".2*,.2*,.2*,.2*,.2*"
+                  ColumnDefinitions=".1*,.8*,.1*">
+                <Entry x:Name="nameEntry"
+                       Grid.Column="1"
+                       Placeholder="Client Name"
+                       Text="{Binding Client.Name}"
+                       FontSize="Large"/>
+                <Entry x:Name="cityEntry"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       Placeholder="Client city"
+                       Text="{Binding Client.City}"
+                       FontSize="Large"/>
+                <Entry x:Name="addressEntry"
+                       Grid.Column="1"
+                       Grid.Row="2"
+                       Placeholder="Client address"
+                       Text="{Binding Client.Address}"
+                       FontSize="Large"/>
+                <Entry x:Name="phoneNumberEntry"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       Placeholder="Client phone number"
+                       Keyboard="Telephone"
+                       FontSize="Large"
+                       Text="{Binding Client.PhoneNumber}"/>
+                <Button x:Name="updateButton" 
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="Update"
+                        FontSize="Large"
+                        Command="{Binding UpdateCommand}"/>
+            </Grid>
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>
