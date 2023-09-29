@@ -1,9 +1,11 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Models.Enums;
 using Maui_Flower_App.Repositories.DI;
 using PropertyChanged;
 using System;
 using System.Windows.Input;
+using Color = Maui_Flower_App.MVVM.Models.Enums.Color;
 
 namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 {
@@ -14,6 +16,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 
         public Flower Flower { get; set; }
         private IFlowerRepository _flowerRepository { get; set; }
+        public string[] FlowerColors { get; set; }
+        public string[] FlowerTypes { get; set; }
 
         #endregion
 
@@ -21,6 +25,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
         {
             Flower = new Flower();
             _flowerRepository = ServiceHelper.GetService<IFlowerRepository>();
+            FlowerColors = Enum.GetNames(typeof(Color));
+            FlowerTypes = Enum.GetNames(typeof(FlowerType));
         }
 
         #region Commands
