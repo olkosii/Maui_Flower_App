@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowerNameGroupView"
+             Title="FlowerNameGroupView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding RedirectToAddFlowerFormCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ScrollView Margin="0,10,0,0">
+        <CollectionView x:Name="flowersCollectionView"
+                        ItemsSource="{Binding Flowers}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding RedirectToFlowerDetailsFormCommand}"
+                        SelectionChangedCommandParameter="{Binding Source={x:Reference flowersCollectionView},Path=SelectedItem}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="5">
+                        <Grid RowDefinitions=".5*,.5*"
+                              ColumnDefinitions=".25*,.75*">
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding Image}"
+                                   WidthRequest="25"
+                                   HeightRequest="25"/>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Length, StringFormat='Length: {0}'}"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding Price, StringFormat='Price(per unit): {0}'}"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ScrollView>
+</ContentPage>

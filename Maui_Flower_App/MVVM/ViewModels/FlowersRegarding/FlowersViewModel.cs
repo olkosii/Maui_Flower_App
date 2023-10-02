@@ -28,12 +28,18 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 
         #region Commands
 
+        public ICommand RedirectToFlowerNameGroupCommand => new Command<Flower>(RedirectToFlowerNameGroup);
         public ICommand RedirectToAddFlowerFormCommand => new Command(RedirectToAddFlowerForm);
         public ICommand SearchCommand => new Command<string>(Search);
 
         #endregion
 
         #region Commands Methods
+
+        private void RedirectToFlowerNameGroup(Flower flower)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new FlowerNameGroupView(flower.TypeName));
+        }
 
         private void RedirectToAddFlowerForm()
         {

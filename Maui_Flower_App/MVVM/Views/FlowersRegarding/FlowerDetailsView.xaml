@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Maui_Flower_App.Converters"
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowerDetailsView"
              Title="FlowerDetailsView">
 
+    <ContentPage.Resources>
+        <converters:FlowerValueConverter x:Key="FlowerValueConverter"/>
+        <converters:FlowerTypeConverter x:Key="FlowerTypeConverter"/>
+        <converters:FlowerColorConverter x:Key="FlowerColorConverter"/>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout VerticalOptions="Center" 
                          HorizontalOptions="Center" >
         <Frame HeightRequest="350"
@@ -13,34 +20,56 @@
                         Offset="20,20"
                         Opacity="0.8"/>
             </Frame.Shadow>
-            <Grid RowDefinitions=".2*,.2*,.2*,.2*,.2*"
+            <Grid RowDefinitions=".12*,.12*,.12*,.12*,.12*,.12*,.12*,.12*"
                   ColumnDefinitions=".1*,.8*,.1*">
                 <Entry x:Name="nameEntry"
                        Grid.Column="1"
-                       Placeholder="Client Name"
-                       Text="{Binding Client.Name}"
+                       Placeholder="Flower Name"
+                       Text="{Binding Flower.TypeName}"
                        FontSize="Large"/>
-                <Entry x:Name="cityEntry"
+                <Entry x:Name="lengthEntry"
                        Grid.Column="1"
                        Grid.Row="1"
-                       Placeholder="Client city"
-                       Text="{Binding Client.City}"
-                       FontSize="Large"/>
-                <Entry x:Name="addressEntry"
+                       Placeholder="Flower Length"
+                       Text="{Binding Flower.Length}"
+                       FontSize="Large"
+                       Keyboard="Numeric"/>
+                <Entry x:Name="countEntry"
                        Grid.Column="1"
                        Grid.Row="2"
-                       Placeholder="Client address"
-                       Text="{Binding Client.Address}"
-                       FontSize="Large"/>
-                <Entry x:Name="phoneNumberEntry"
+                       Placeholder="Count Per Package"
+                       Text="{Binding Flower.CountPerPackage}"
+                       FontSize="Large"
+                       Keyboard="Numeric"/>
+                <Entry x:Name="priceEntry"
                        Grid.Column="1"
                        Grid.Row="3"
-                       Placeholder="Client phone number"
-                       Keyboard="Telephone"
-                       FontSize="Large"
-                       Text="{Binding Client.PhoneNumber}"/>
+                       Placeholder="Flower Price"
+                       Text="{Binding Flower.PricePerUnit}"
+                       Keyboard="Numeric"
+                       FontSize="Large"/>
+                <Entry x:Name="imageEntry"
+                       Grid.Column="1"
+                       Grid.Row="4"
+                       Placeholder="Flower Price"
+                       Text="{Binding Flower.Image}"
+                       FontSize="Large"/>
+                <Picker Grid.Row="5"
+                        Grid.Column="1"
+                        Title="Type"
+                        FontSize="Large"
+                        TitleColor="LightGrey"
+                        ItemsSource="{Binding FlowerTypes}"
+                        SelectedItem="{Binding Flower.Type, Converter={StaticResource FlowerTypeConverter}}"/>
+                <Picker Grid.Row="6"
+                        Grid.Column="1"
+                        Title="Main Color"
+                        FontSize="Large"
+                        TitleColor="LightGrey"
+                        ItemsSource="{Binding FlowerColors}"
+                        SelectedItem="{Binding Flower.MainColor, Converter={StaticResource FlowerColorConverter}}"/>
                 <Button x:Name="updateButton" 
-                        Grid.Row="4"
+                        Grid.Row="7"
                         Grid.Column="1"
                         Text="Update"
                         FontSize="Large"
