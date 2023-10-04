@@ -53,6 +53,7 @@ public partial class ClientsView : ContentPage
         if(clientsCollectionView.SelectedItem is Client client)
             await _clientViewModel.DeleteClientAsync(client);
 
+        clientsCollectionView.SelectedItem = null;
         clientsCollectionView.SelectionChangedCommand = _clientViewModel.ItemSelectedCommand;
     }
 }

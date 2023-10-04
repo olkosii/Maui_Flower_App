@@ -9,7 +9,7 @@ namespace Maui_Flower_App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            return Enum.GetName(typeof(Color), value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

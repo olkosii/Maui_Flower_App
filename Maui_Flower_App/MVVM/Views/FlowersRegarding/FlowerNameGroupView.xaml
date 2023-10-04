@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Maui_Flower_App.Converters"
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowerNameGroupView"
-             Title="FlowerNameGroupView">
+             Title="Flower Group">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
@@ -17,20 +18,30 @@
                         SelectionChangedCommandParameter="{Binding Source={x:Reference flowersCollectionView},Path=SelectedItem}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="5">
+                    <Border Margin="5"
+                            Padding="4,4"
+                            HeightRequest="100"
+                            WidthRequest="350"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20,20,20,20" />
+                        </Border.StrokeShape>
                         <Grid RowDefinitions=".5*,.5*"
                               ColumnDefinitions=".25*,.75*">
                             <Image Grid.RowSpan="2"
                                    Source="{Binding Image}"
-                                   WidthRequest="25"
-                                   HeightRequest="25"/>
+                                   Aspect="Fill"/>
                             <Label Grid.Column="1"
-                                   Text="{Binding Length, StringFormat='Length: {0}'}"/>
+                                   Margin="0,10,0,0"
+                                   Text="{Binding Length, StringFormat='Length: {0}'}"
+                                   FontAttributes="Bold"/>
                             <Label Grid.Row="1"
                                    Grid.Column="1"
-                                   Text="{Binding Price, StringFormat='Price(per unit): {0}'}"/>
+                                   Text="{Binding PricePerUnit, StringFormat='Price(per unit): {0} ₴'}"
+                                   FontAttributes="Italic"/>
                         </Grid>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

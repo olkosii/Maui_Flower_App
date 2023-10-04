@@ -1,12 +1,10 @@
-
-﻿using System;
+using System;
 using Maui_Flower_App.MVVM.Views.FlowersRegarding;
 using System.Windows.Input;
 using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.Repositories.DI;
 using Maui_Flower_App.Helpers;
 using PropertyChanged;
-using Maui_Flower_App.MVVM.Models.Groups;
 
 namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 {
@@ -24,6 +22,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
         public FlowersViewModel()
         {
             _flowerRepository = ServiceHelper.GetService<IFlowerRepository>();
+            Flowers = new List<Flower>();
+            FilteredFlowers = new List<Flower>();
         }
 
         #region Commands

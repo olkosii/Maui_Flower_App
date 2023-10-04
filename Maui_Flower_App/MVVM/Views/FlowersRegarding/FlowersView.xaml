@@ -25,6 +25,7 @@
             <CollectionView x:Name="flowersCollectionView"
                             ItemsSource="{Binding FilteredFlowers}"
                             SelectionMode="Single"
+                            EmptyView="Please wait for a few seconds!"
                             SelectionChangedCommand="{Binding RedirectToFlowerNameGroupCommand}"
                             SelectionChangedCommandParameter="{Binding Source={x:Reference flowersCollectionView},Path=SelectedItem}">
                 <CollectionView.ItemsLayout>
@@ -32,11 +33,21 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame x:Name="containerFrame"
-                               Margin="5">
+                        <Border x:Name="containerBorder"
+                                Margin="5"
+                                Padding="4,4"
+                                HeightRequest="50"
+                                WidthRequest="130"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="40,40,40,40" />
+                            </Border.StrokeShape>
                             <Label Text="{Binding TypeName}"
-                                   TextColor="Black"/>
-                        </Frame>
+                                   TextColor="Black"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"/>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

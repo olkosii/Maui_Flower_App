@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:Maui_Flower_App.Converters"
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowerDetailsView"
-             Title="FlowerDetailsView">
+             Title="Flower Details">
 
     <ContentPage.Resources>
         <converters:FlowerValueConverter x:Key="FlowerValueConverter"/>
@@ -13,14 +13,14 @@
     
     <VerticalStackLayout VerticalOptions="Center" 
                          HorizontalOptions="Center" >
-        <Frame HeightRequest="350"
+        <Frame HeightRequest="620"
                Margin="10,0">
             <Frame.Shadow>
                 <Shadow Brush="Black"
                         Offset="20,20"
                         Opacity="0.8"/>
             </Frame.Shadow>
-            <Grid RowDefinitions=".12*,.12*,.12*,.12*,.12*,.12*,.12*,.12*"
+            <Grid RowDefinitions=".11*,.11*,.11*,.11*,.11*,.11*,.11*,.11*,.11*"
                   ColumnDefinitions=".1*,.8*,.1*">
                 <Entry x:Name="nameEntry"
                        Grid.Column="1"
@@ -51,7 +51,7 @@
                 <Entry x:Name="imageEntry"
                        Grid.Column="1"
                        Grid.Row="4"
-                       Placeholder="Flower Price"
+                       Placeholder="Flower Image"
                        Text="{Binding Flower.Image}"
                        FontSize="Large"/>
                 <Picker Grid.Row="5"
@@ -74,6 +74,14 @@
                         Text="Update"
                         FontSize="Large"
                         Command="{Binding UpdateCommand}"/>
+                <Button x:Name="deleteButton" 
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Text="Delete"
+                        FontSize="Large"
+                        Margin="0,5,0,0"
+                        BackgroundColor="IndianRed"
+                        Command="{Binding DeleteCommand}"/>
             </Grid>
         </Frame>
     </VerticalStackLayout>

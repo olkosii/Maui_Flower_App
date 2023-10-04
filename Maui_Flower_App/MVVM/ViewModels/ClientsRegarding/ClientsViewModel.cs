@@ -13,7 +13,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
     public class ClientsViewModel
     {
         #region Properties
-
+        
         private List<ClientGroup> Clients { get; set; }
         public List<ClientGroup> FilteredClients { get; set; }
         private IClientRepository _clientRepository { get; set; }
@@ -57,14 +57,15 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
         public void RedirectToClientDetails(Client client)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new ClientDetailsView(client));
+            if(client != null)
+                Application.Current.MainPage.Navigation.PushAsync(new ClientDetailsView(client));
         }
  
         public async Task DeleteClientAsync(Client client)
         {
             var alertResult = await Application.Current.MainPage
                     .DisplayAlert(Constants.AppConstants.Message.Attention,
-                    Constants.AppConstants.Message.DeleteAttentionMessage + $"({client.Name})", "Ok", "Cancel");
+                    Constants.AppConstants.Message.DeleteClientAttentionMessage + $"({client.Name})", "Ok", "Cancel");
 
             if (alertResult)
             {
@@ -72,8 +73,16 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
 
                 if (result)
                 {
-                    var clientIndex = Clients.FirstOrDefault(cg => cg.Name == client.City).FindIndex(c => c.Id == client.Id);
-                    Clients.FirstOrDefault(cg => cg.Name == client.City).RemoveAt(clientIndex);
+                    var clientGroup = FilteredClients.FirstOrDefault(cg => cg.Name == client.City);
+                    var clientIndex = clientGroup.FindIndex(c => c.Id == client.Id);
+
+                    clientGroup.RemoveAt(clientIndex);
+
+                    if(clientGroup.Count == 0)
+                    {
+                        Clients.Remove(clientGroup);
+                        FilteredClients.Remove(clientGroup);
+                    }
 
                     await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Message.MessageWord, Constants.AppConstants.Message.UserDeleted, "Ok");
                 }

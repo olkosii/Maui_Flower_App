@@ -78,7 +78,7 @@ namespace Maui_Flower_App.Repositories
         {
             try
             {
-                var flower = GetFlowerAsync(flowerId);
+                var flower = await GetFlowerAsync(flowerId);
                 var result = _databaseConnection.Delete(flower);
 
                 return result > 0;

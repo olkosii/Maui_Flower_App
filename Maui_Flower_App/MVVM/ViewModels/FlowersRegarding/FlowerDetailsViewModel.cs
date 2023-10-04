@@ -32,6 +32,7 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
         #region Commands
 
         public ICommand UpdateCommand => new Command(UpdateFlower);
+        public ICommand DeleteCommand => new Command(DeleteFlower);
 
         #endregion
 
@@ -47,6 +48,25 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
                 await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Error.ErrorWord, Constants.AppConstants.Error.ErrorMessage, "Ok");
 
             await Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        private async void DeleteFlower()
+        {
+            var alertResult = await Application.Current.MainPage
+                    .DisplayAlert(Constants.AppConstants.Message.Attention,
+                    Constants.AppConstants.Message.DeleteClientAttentionMessage + $"({Flower.TypeName})", "Ok", "Cancel");
+
+            if (alertResult)
+            {
+                var result = await _flowerRepository.DeleteFlowerAsync(Flower.Id);
+
+                if (result)
+                    await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Message.MessageWord, Constants.AppConstants.Message.FlowerDeleted, "Ok");
+                else
+                    await Application.Current.MainPage.DisplayAlert(Constants.AppConstants.Error.ErrorWord, Constants.AppConstants.Error.ErrorMessage, "Ok");
+
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
         }
 
         #endregion
