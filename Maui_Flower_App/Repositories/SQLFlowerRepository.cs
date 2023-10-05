@@ -45,16 +45,22 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        //NOT WORKING
         public async Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowersGroupAsync()
         {
             try
             {
-                var fgByColor = _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).OrderBy(f => f.MainColor)
-                    .GroupBy(f => f.MainColor).Select(fg => new FlowerGroup(fg.Key.ToString(), fg.ToList())).ToList();
+                var flowers = await GetDistinctFlowersAsync();
 
+                var flowerGroupGroups = flowers
+                    .OrderBy(flower => flower.TypeName)
+                    .GroupBy(flower => flower.Type)
+                    .Select(typeGroup => new FlowerGroupGroup(typeGroup.Key.ToString(),typeGroup
+                    .GroupBy(flower => flower.MainColor)
+                    .Select(colorGroup => new FlowerGroup(colorGroup.Key.ToString(), colorGroup.ToList()))
+                    .ToList()))
+                    .ToList();
 
-                return new List<FlowerGroupGroup>();
+                return flowerGroupGroups;
             }
             catch (Exception)
             {
