@@ -45,7 +45,7 @@ namespace Maui_Flower_App.Repositories
             }
         }
 
-        public async Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowersGroupAsync()
+        public async Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowerGroupsAsync()
         {
             try
             {

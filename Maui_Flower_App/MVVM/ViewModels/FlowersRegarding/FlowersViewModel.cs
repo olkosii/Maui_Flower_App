@@ -5,6 +5,7 @@ using Maui_Flower_App.MVVM.Models;
 using Maui_Flower_App.Repositories.DI;
 using Maui_Flower_App.Helpers;
 using PropertyChanged;
+using Maui_Flower_App.MVVM.Models.Groups;
 
 namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 {
@@ -13,8 +14,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
     {
         #region Properties
 
-        private List<Flower> Flowers { get; set; }
-        public List<Flower> FilteredFlowers { get; set; }
+        private List<FlowerGroupGroup> Flowers { get; set; }
+        public List<FlowerGroupGroup> FilteredFlowers { get; set; }
         private IFlowerRepository _flowerRepository { get; set; }
 
         #endregion
@@ -22,8 +23,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
         public FlowersViewModel()
         {
             _flowerRepository = ServiceHelper.GetService<IFlowerRepository>();
-            Flowers = new List<Flower>();
-            FilteredFlowers = new List<Flower>();
+            Flowers = new List<FlowerGroupGroup>();
+            FilteredFlowers = new List<FlowerGroupGroup>();
         }
 
         #region Commands
@@ -38,7 +39,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 
         private void RedirectToFlowerNameGroup(Flower flower)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new FlowerNameGroupView(flower.TypeName));
+            if (flower != null)
+                Application.Current.MainPage.Navigation.PushAsync(new FlowerNameGroupView(flower.TypeName));
         }
 
         private void RedirectToAddFlowerForm()
@@ -56,8 +58,8 @@ namespace Maui_Flower_App.MVVM.ViewModels.FlowersRegarding
 
         public async Task InitializeFlowersAsync()
         {
-            Flowers = await _flowerRepository.GetDistinctFlowersAsync();
-            FilteredFlowers = new List<Flower>(Flowers);
+            Flowers = await _flowerRepository.GetDistinctGroupsOfFlowerGroupsAsync();
+            FilteredFlowers = new List<FlowerGroupGroup>(Flowers);
         }
     }
 }

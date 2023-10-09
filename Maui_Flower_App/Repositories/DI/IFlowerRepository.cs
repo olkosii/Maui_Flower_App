@@ -8,7 +8,7 @@ namespace Maui_Flower_App.Repositories.DI
     {
         Task<List<Flower>> GetDistinctFlowersAsync();
         Task<List<Flower>> GetFlowerGroupByName(string flowerName);
-        Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowersGroupAsync();
+        Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowerGroupsAsync();
         Task<Flower> GetFlowerAsync(int flowerId);
         Task<bool> DeleteFlowerAsync(int flowerId);
         Task<bool> CreateFlowerAsync(Flower flower);
