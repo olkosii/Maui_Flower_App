@@ -4,7 +4,6 @@
              x:Class="Maui_Flower_App.MVVM.Views.FlowersRegarding.FlowersView"
              Title="Flowers">
 
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
                      Command="{Binding RedirectToAddFlowerFormCommand}"/>
@@ -22,16 +21,57 @@
         </VerticalStackLayout>
         <ScrollView Grid.Row="1"
                     Margin="0,10,0,0">
-            <CollectionView ItemsSource="{Binding FilteredFlowers}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="3" />
-                </CollectionView.ItemsLayout>
+            <CollectionView x:Name="flowersGroupsCollectionView"
+                            IsGrouped="True"
+                            ItemsSource="{Binding FilteredFlowers}">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}"
+                               Margin="15,10"
+                               TextColor="Gray"
+                               FontSize="Medium"
+                               FontAttributes="Italic"/>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="5">
-                            <Label Text="{Binding TypeName}"
-                                   TextColor="Black"/>
-                        </Frame>
+                        <Grid RowDefinitions=".2*,.8*">
+                            <Label Text="{Binding ColorName}"
+                                           Margin="15,10"
+                                           TextColor="Gray"
+                                           FontSize="Small"
+                                           FontAttributes="Italic"/>
+                            <CollectionView x:Name="flowersCollectionView"
+                                            ItemsSource="{Binding .}"
+                                            EmptyView="No data"
+                                            Grid.Row="1"
+                                            SelectionMode="Single"
+                                            SelectionChangedCommand="{Binding Source={x:Reference flowersGroupsCollectionView}, Path=BindingContext.RedirectToFlowerNameGroupCommand}"
+                                            SelectionChangedCommandParameter="{Binding Source={x:Reference flowersCollectionView}, Path=SelectedItem}">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" Span="3" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border x:Name="containerBorder"
+                                                Margin="5"
+                                                Padding="4,4"
+                                                HeightRequest="50"
+                                                WidthRequest="130"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="40,40,40,40" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding TypeName}"
+                                                   TextColor="Black"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -1,5 +1,6 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Models.Groups;
 using Maui_Flower_App.Repositories.DI;
 using SQLite;
 using System;
@@ -19,45 +20,51 @@ namespace Maui_Flower_App.Repositories
             _databaseConnection.CreateTable<Flower>();
         }
 
-        public async Task<bool> CreateFlowerAsync(Flower flower)
-        {
-            int result = 0;
-            try
-            {
-                result = _databaseConnection.Insert(flower);
-
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public async Task<bool> DeleteFlowerAsync(int flowerId)
-        {
-            try
-            {
-                var flower = GetFlowerAsync(flowerId);
-                var result = _databaseConnection.Delete(flower);
-
-                return result > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public async Task<List<Flower>> GetDistinctFlowersAsync()
         {
             try
             {
-                return _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).OrderBy(f => f.TypeName).ToList();
+                return _databaseConnection.Table<Flower>().DistinctBy(f => f.TypeName).ToList();
             }
             catch (Exception)
             {
                 return new List<Flower>();
+            }
+        }
+
+        public async Task<List<Flower>> GetFlowerGroupByName(string flowerName)
+        {
+            try
+            {
+                return _databaseConnection.Table<Flower>()
+                    .Where(f => f.TypeName == flowerName).OrderBy(f => f.Length).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<Flower>();
+            }
+        }
+
+        public async Task<List<FlowerGroupGroup>> GetDistinctGroupsOfFlowerGroupsAsync()
+        {
+            try
+            {
+                var flowers = await GetDistinctFlowersAsync();
+
+                var flowerGroupGroups = flowers
+                    .OrderBy(flower => flower.TypeName)
+                    .GroupBy(flower => flower.Type)
+                    .Select(typeGroup => new FlowerGroupGroup(typeGroup.Key.ToString(),typeGroup
+                    .GroupBy(flower => flower.MainColor)
+                    .Select(colorGroup => new FlowerGroup(colorGroup.Key.ToString(), colorGroup.ToList()))
+                    .ToList()))
+                    .ToList();
+
+                return flowerGroupGroups;
+            }
+            catch (Exception)
+            {
+                return new List<FlowerGroupGroup>();
             }
         }
 
@@ -70,6 +77,36 @@ namespace Maui_Flower_App.Repositories
             catch (Exception)
             {
                 return new Flower();
+            }
+        }
+
+        public async Task<bool> DeleteFlowerAsync(int flowerId)
+        {
+            try
+            {
+                var flower = await GetFlowerAsync(flowerId);
+                var result = _databaseConnection.Delete(flower);
+
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateFlowerAsync(Flower flower)
+        {
+            int result = 0;
+            try
+            {
+                result = _databaseConnection.Insert(flower);
+
+                return result > 0;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

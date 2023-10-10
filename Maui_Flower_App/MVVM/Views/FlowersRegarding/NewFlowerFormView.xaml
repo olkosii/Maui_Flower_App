@@ -7,30 +7,44 @@
 
     <ContentPage.Resources>
         <converters:FlowerValueConverter x:Key="FlowerValueConverter"/>
+        <converters:FlowerTypeConverter x:Key="FlowerTypeConverter"/>
+        <converters:FlowerColorConverter x:Key="FlowerColorConverter"/>
     </ContentPage.Resources>
 
     <VerticalStackLayout HorizontalOptions="Center"
                          VerticalOptions="Center">
         <Frame Margin="10">
-            <Grid RowDefinitions=".2*,.2*,.2*,.2*,.2*">
+            <Grid RowDefinitions=".14*,.14*,.14*,.14*,.14*,.14*,.14*">
                 <Entry Text="{Binding Flower.Image}"
                        FontSize="Large"
                        Placeholder="Image url"/>
-                <Entry Grid.Row="1"
+                <Picker Grid.Row="1"
+                        Title="Type"
+                        FontSize="Large"
+                        TitleColor="LightGrey"
+                        ItemsSource="{Binding FlowerTypes}"
+                        SelectedItem="{Binding Flower.Type, Converter={StaticResource FlowerTypeConverter}}"/>
+                <Picker Grid.Row="2"
+                        Title="Main Color"
+                        FontSize="Large"
+                        TitleColor="LightGrey"
+                        ItemsSource="{Binding FlowerColors}"
+                        SelectedItem="{Binding Flower.MainColor, Converter={StaticResource FlowerColorConverter}}"/>
+                <Entry Grid.Row="3"
                        Text="{Binding Flower.TypeName}"
                        FontSize="Large"
                        Placeholder="Type Name"/>
-                <Entry Grid.Row="2"
+                <Entry Grid.Row="4"
                        Text="{Binding Flower.Length, Converter={StaticResource FlowerValueConverter}}"
                        FontSize="Large"
                        Placeholder="Length(cm)"
                        Keyboard="Numeric"/>
-                <Entry Grid.Row="3"
+                <Entry Grid.Row="5"
                        Text="{Binding Flower.CountPerPackage, Converter={StaticResource FlowerValueConverter}}"
                        FontSize="Large"
                        Placeholder="Count Per Package"
                        Keyboard="Numeric"/>
-                <Entry Grid.Row="4"
+                <Entry Grid.Row="6"
                        Text="{Binding Flower.PricePerUnit, Converter={StaticResource FlowerValueConverter}}"
                        FontSize="Large"
                        Placeholder="Price Per Unit"

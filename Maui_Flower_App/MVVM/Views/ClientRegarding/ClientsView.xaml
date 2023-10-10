@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui_Flower_App.MVVM.Views.ClientRegarding.ClientsView"
-             Title="ClientsView">
+             Title="Clients">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add"
@@ -24,6 +24,7 @@
             <CollectionView x:Name="clientsCollectionView"
                             SelectionMode="Single"
                             IsGrouped="True"
+                            EmptyView="Please wait for a few seconds!"
                             ItemsSource="{Binding FilteredClients}"
                             SelectionChanged="clientsCollectionView_SelectionChanged"
                             SelectionChangedCommand="{Binding ItemSelectedCommand}"
