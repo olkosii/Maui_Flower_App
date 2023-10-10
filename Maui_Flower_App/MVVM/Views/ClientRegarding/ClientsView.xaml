@@ -41,7 +41,8 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame x:Name="containerFrame"
-                               Margin="0,5">
+                               Margin="0,5"
+                               HeightRequest="80">
                             <SwipeView SwipeStarted="SwipeView_SwipeStarted"
                                        SwipeEnded="SwipeView_SwipeEnded">
                                 <SwipeView.LeftItems>

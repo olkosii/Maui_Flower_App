@@ -1,5 +1,6 @@
 ﻿using Maui_Flower_App.Helpers;
 using Maui_Flower_App.MVVM.Models;
+using Maui_Flower_App.MVVM.Views.ClientRegarding;
 using Maui_Flower_App.Repositories.DI;
 using PropertyChanged;
 using System;
@@ -26,10 +27,16 @@ namespace Maui_Flower_App.MVVM.ViewModels.ClientsRegarding
         #region Commands
 
         public ICommand UpdateCommand => new Command(UpdateClient);
+        public ICommand MapCommand => new Command(OpenMap);
 
         #endregion
 
         #region Commands methods
+
+        private async void OpenMap()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new ClientsMapView());
+        }
 
         private async void UpdateClient()
         {

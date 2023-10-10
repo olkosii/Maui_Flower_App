@@ -47,5 +47,7 @@
                         Command="{Binding UpdateCommand}"/>
             </Grid>
         </Frame>
+        <Button Text="Find on map"
+                Command="{Binding MapCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

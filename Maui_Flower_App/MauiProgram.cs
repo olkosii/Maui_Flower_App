@@ -1,4 +1,5 @@
-﻿using Maui_Flower_App.Helpers;
+﻿using Maui.GoogleMaps.Hosting;
+using Maui_Flower_App.Helpers;
 using Maui_Flower_App.Repositories;
 using Maui_Flower_App.Repositories.DI;
 
@@ -17,7 +18,14 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton<IClientRepository, SQLClientRepository>();
+		#if ANDROID
+			builder.UseGoogleMaps();
+		#elif IOS
+			builder.UseGoogleMaps("AIzaSyAEbGVyi4u2aNYLbq5wNSk9SCduZVI0bfk");
+		#endif
+
+
+        builder.Services.AddSingleton<IClientRepository, SQLClientRepository>();
 		builder.Services.AddSingleton<IFlowerRepository, SQLFlowerRepository>();
 
         var app = builder.Build();

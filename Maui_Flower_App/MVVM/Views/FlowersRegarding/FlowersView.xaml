@@ -35,7 +35,7 @@
                 </CollectionView.GroupHeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid RowDefinitions=".2*,.8*">
+                        <Grid RowDefinitions=".3*,.7*">
                             <Label Text="{Binding ColorName}"
                                            Margin="15,10"
                                            TextColor="Gray"
@@ -54,9 +54,9 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Border x:Name="containerBorder"
-                                                Margin="5"
+                                                Margin="5,15,5,5"
                                                 Padding="4,4"
-                                                HeightRequest="50"
+                                                HeightRequest="60"
                                                 WidthRequest="130"
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Center">
