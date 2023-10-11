@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui_Flower_App.MVVM.Views.OrdersRegarding.OrdersView"
              Title="OrdersView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to orders page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                     Command="{Binding NewOrderCommand}"/>
+    </ContentPage.ToolbarItems>
 </ContentPage>

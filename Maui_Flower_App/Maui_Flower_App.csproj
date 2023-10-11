@@ -87,6 +87,9 @@
 	  <MauiXaml Update="MVVM\Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\OrdersRegarding\NewOrderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\OrdersRegarding\OrdersView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -17,7 +17,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton<IClientRepository, SQLClientRepository>();
+        builder.Services.AddSingleton<IOrderRepository, SQLOrderRepository>();
+        builder.Services.AddSingleton<IClientRepository, SQLClientRepository>();
 		builder.Services.AddSingleton<IFlowerRepository, SQLFlowerRepository>();
 
         var app = builder.Build();

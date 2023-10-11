@@ -2,17 +2,15 @@ using Maui_Flower_App.MVVM.ViewModels.OrdersRegarding;
 
 namespace Maui_Flower_App.MVVM.Views.OrdersRegarding;
 
-public partial class OrdersView : ContentPage
+public partial class NewOrderView : ContentPage
 {
-	private OrdersViewModel _viewModel;
-	public OrdersView()
+	private NewOrderViewModel _viewModel;
+	public NewOrderView()
 	{
 		InitializeComponent();
 
-		_viewModel = new OrdersViewModel();
+		_viewModel = new NewOrderViewModel();
 
 		BindingContext = _viewModel;
 	}
-
-
 }
